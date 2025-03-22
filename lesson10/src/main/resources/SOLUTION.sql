@@ -1,0 +1,2 @@
+SELECT s.* FROM subject s JOIN mark m ON s.id = m.subject_id GROUP BY s.id, s.name, s.description, s.grade HAVING AVG(m.mark) > (SELECT AVG(mark) FROM mark);
+SELECT s.* FROM student s JOIN (SELECT student_id, SUM(amount) AS total_amount FROM payment GROUP BY student_id) p ON s.id = p.student_id WHERE p.total_amount < (SELECT AVG(total_amount) FROM (SELECT student_id, SUM(amount) AS total_amount FROM payment GROUP BY student_id) AS t);
